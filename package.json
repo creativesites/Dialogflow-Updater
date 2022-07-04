@@ -1,0 +1,40 @@
+{
+  "name": "dialogflow-updater",
+  "version": "1.0.0",
+  "description": "Batch update Dialogflow intents across different agents",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/creativesites/Dialogflow-Updater.git"
+  },
+  "keywords": [
+    "Dialogflow",
+    "batch",
+    "update",
+    "update",
+    "Dialogflow",
+    "intents"
+  ],
+  "author": "Winston Zulu",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/creativesites/Dialogflow-Updater/issues"
+  },
+  "homepage": "https://github.com/creativesites/Dialogflow-Updater#readme",
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.12",
+    "cors": "^2.8.5",
+    "dotenv": "^16.0.1",
+    "express": "^4.18.1",
+    "http-errors": "^2.0.0",
+    "morgan": "^1.10.0",
+    "path": "^0.12.7",
+    "puppeteer": "^15.2.0",
+    "puppeteer-extra": "^3.3.0",
+    "puppeteer-extra-plugin-stealth": "^2.10.1",
+    "rimraf": "^3.0.2"
+  }
+}
