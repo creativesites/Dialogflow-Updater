@@ -8,21 +8,41 @@
 
 5. Copy and paste the following commands into terminal:
 
-$ git clone https://github.com/creativesites/Dialogflow-Updater.git
+* clone repo
+  ```sh
+  git clone https://github.com/creativesites/Dialogflow-Updater.git
+  ```
 
-$ cd Dialogflow-Updater
+* cd into repo folder
+  ```sh
+  cd Dialogflow-Updater
+  ```
 
-$ npm install
 
-$ npm start
+* install dependencies
+  ```sh
+  npm install
+  ```
+
+* run 
+  ```sh
+  npm start
+  ```
+
 
 6. Enter the following details onto the terminal when prompted:
 
-- Enter your agentName : Enter name of agent to copy from
--Enter intent index (remenber to count the index of the intent from the top and add ONE): Count the position of the intent you want to copy and add one
--Enter target agent names seperated by a space:
--Enter your google email:
--Enter your password:
+- (`Enter your agentName :`)    Enter name of agent to copy from
+
+
+- (`Enter intent index (remenber to count the index of the intent from the top and add ONE)`):   Count the position of the intent you want to copy and add one
+
+- (`Enter target agent names seperated by a space:`)
+
+- (`Enter your google email:`)
+
+- (`Enter your password:`)
+
 
 7. Wait for the script to run and finish. It'll run with headless mode set to false so you can follow the progress.
 
