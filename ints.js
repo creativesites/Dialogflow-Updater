@@ -43,13 +43,13 @@ const prompt = (query, hidden = false) =>
 
 dotenv.config();
 
-async function test(agent, ints, changeAgents){
+async function test(){
+  //process.env.password
   puppeteerExtra.use(stealthPlugin());
   const browser = await puppeteerExtra.launch({ headless: false, defaultViewport: null,args: [
     '--disable-web-security',
     '--disable-features=IsolateOrigins,site-per-process'
   ] });
-  let agentsLen = changeAgents.length;
   
   
     // Close the new tab that chromium always opens first.
@@ -63,8 +63,8 @@ async function test(agent, ints, changeAgents){
       pages[0].close();
       await page.goto('https://accounts.google.com/signin/v2/identifier', { waitUntil: 'networkidle2', timeout: 0 });
       await page.waitForSelector('#identifierId');
-      //const email = await prompt('Email or phone: ');
-      await page.type('#identifierId', process.env.gmailUsername);
+      const email = await prompt('Enter your google email: ', false);
+      await page.type('#identifierId', email);
       await page.waitForTimeout(1500);
       await page.keyboard.press('Enter');
       await page.waitForTimeout(1500);
@@ -72,7 +72,7 @@ async function test(agent, ints, changeAgents){
       console.log('Finishing up...');
       // Wait for password input
       await page.waitForSelector('input[type="password"]');
-      await page.type('input[type="password"]', process.env.password);
+      await page.type('input[type="password"]', password);
       await page.waitForTimeout(2500);
       await page.keyboard.press('Enter');
       return
@@ -107,27 +107,41 @@ async function test(agent, ints, changeAgents){
       await page1.waitForTimeout(5000);
       return page1
     }
+   //3V-200-AS2-3238142611 5-VoicemailFN 5 AvondalePolice Attendance 
    
-    
+    const agent = await prompt('Enter your agentName: ', false);
+   
+    //const ints = await prompt('Enter intent Name: ', false);
+    const ints1 = await prompt('Enter intent index (remenber to count the index of the intent from the top and add ONE): ', false);
+  
+    let changeAgents1 = await prompt('Enter target agent names seperated by a space: ', false);
+    let changeAgents;
+    console.log(changeAgents1)
     login()
     .then(()=>{
+      let changeAgents2 = changeAgents1.split(' ');
+      changeAgents = changeAgents2.map((elt)=>{
+        let gh = elt + ' [en]'
+        return gh
+      })
       setUp()
       .then(async(page1)=>{
+        console.log(changeAgents)
         await changeAgents.forEach(async(el, idx)=>{
           await setTimeout(async() => {
              //hover 
             await page1.waitForTimeout(5000);
-            await page1.hover(`aria/${ints.name}`,{ timeout: 0 })
+            await page1.hover(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints1}) > intents-list-item > div > div > span`,{ timeout: 0 })
             await page1.waitForTimeout(2000);
             console.log('hovering over intent')
             await page1.waitForTimeout(5000);
                 //select intents
                 //scroll into view
                 await page1.waitForTimeout(1000);
-                await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints.num}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`,{ timeout: 0 });
+                await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints1}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`,{ timeout: 0 });
                 await page1.waitForTimeout(2000);
                 console.log(`selecting intent`)
-                await page1.click(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints.num}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`)
+                await page1.click(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints1}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`)
             await page1.waitForTimeout(1000);
               await page1.waitForSelector('aria/COPY',{ timeout: 0 });
               await page1.waitForTimeout(1000);
@@ -181,10 +195,5 @@ async function test(agent, ints, changeAgents){
     
    
 }
-let agnt = '3V-200-AS2-3238142611'
-let intss = {
-  name: '5-VoicemailNN Expand follow-up intents',
-  num: '6'
-}
-let changeAgents = ['AvondalePolice [en]', 'Attendance [en]']
-test(agnt, intss, changeAgents)
+
+test()
