@@ -51,7 +51,3 @@
 8. Close the program with control plus c from your keyboard. 
 
 
-[Node js]: https://img.shields.io/static/v1?label=<Download Node js>&message=<Download Node js>&color=4FC08D 
-[Vue-url]: https://nodejs.org/en/download/
-[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
-[Angular-url]: https://angular.io/
