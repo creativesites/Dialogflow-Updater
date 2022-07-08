@@ -1,8 +1,10 @@
 # Dialogflow-Updater
 
-1. Download and install Node js from here: https://nodejs.org/en/download/
+1. Download and install Node js from here: 
+* https://nodejs.org/en/download/
 
-3. Download and install Git from here: https://git-scm.com/download/mac
+3. Download and install Git from here: 
+* https://git-scm.com/download/mac
 
 4. Open Terminal on your computer
 
@@ -48,3 +50,8 @@
 
 8. Close the program with control plus c from your keyboard. 
 
+
+[Node js]: https://img.shields.io/static/v1?label=<Download Node js>&message=<Download Node js>&color=4FC08D 
+[Vue-url]: https://nodejs.org/en/download/
+[Angular.io]: https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white
+[Angular-url]: https://angular.io/
