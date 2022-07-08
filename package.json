@@ -26,15 +26,21 @@
   "homepage": "https://github.com/creativesites/Dialogflow-Updater#readme",
   "dependencies": {
     "cheerio": "^1.0.0-rc.12",
+    "chrome-launcher": "^0.15.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "forEachAsync": "^3.0.0",
     "http-errors": "^2.0.0",
+    "jsonfile": "^6.1.0",
     "morgan": "^1.10.0",
     "path": "^0.12.7",
+    "playwright": "^1.23.1",
     "puppeteer": "^15.2.0",
     "puppeteer-extra": "^3.3.0",
     "puppeteer-extra-plugin-stealth": "^2.10.1",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "sequence": "^3.0.0",
+    "sequence-js": "^0.0.3"
   }
 }
