@@ -2,10 +2,13 @@
   "name": "dialogflow-updater",
   "version": "1.0.0",
   "description": "Batch update Dialogflow intents across different agents",
-  "main": "app.js",
+  "main": "update.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node ints.js"
+    "start": "electron-forge start",
+    "launch": "electron .",
+    "package": "electron-forge package",
+    "make": "electron-forge make"
   },
   "repository": {
     "type": "git",
@@ -26,10 +29,14 @@
   },
   "homepage": "https://github.com/creativesites/Dialogflow-Updater#readme",
   "dependencies": {
+    "assert": "^2.0.0",
     "cheerio": "^1.0.0-rc.12",
+    "child_process": "^1.0.2",
     "chrome-launcher": "^0.15.1",
     "cors": "^2.8.5",
     "dotenv": "^16.0.1",
+    "electron-prompt": "^1.7.0",
+    "electron-squirrel-startup": "^1.0.0",
     "express": "^4.18.1",
     "forEachAsync": "^3.0.0",
     "http-errors": "^2.0.0",
@@ -38,10 +45,50 @@
     "path": "^0.12.7",
     "playwright": "^1.23.1",
     "puppeteer": "^15.2.0",
+    "puppeteer-core": "^15.3.2",
     "puppeteer-extra": "^3.3.0",
     "puppeteer-extra-plugin-stealth": "^2.10.1",
+    "puppeteer-in-electron": "^3.0.5",
     "rimraf": "^3.0.2",
     "sequence": "^3.0.0",
-    "sequence-js": "^0.0.3"
+    "sequence-js": "^0.0.3",
+    "tree-kill": "^1.2.2"
+  },
+  "devDependencies": {
+    "@electron-forge/cli": "^6.0.0-beta.64",
+    "@electron-forge/maker-deb": "^6.0.0-beta.64",
+    "@electron-forge/maker-rpm": "^6.0.0-beta.64",
+    "@electron-forge/maker-squirrel": "^6.0.0-beta.64",
+    "@electron-forge/maker-zip": "^6.0.0-beta.64",
+    "electron": "^19.0.8"
+  },
+  "config": {
+    "forge": {
+      "packagerConfig": {
+        "icon": "./assets/du2.icns"
+      },
+      "makers": [
+        {
+          "name": "@electron-forge/maker-squirrel",
+          "config": {
+            "name": "dialogflow_updater"
+          }
+        },
+        {
+          "name": "@electron-forge/maker-zip",
+          "platforms": [
+            "darwin"
+          ]
+        },
+        {
+          "name": "@electron-forge/maker-deb",
+          "config": {}
+        },
+        {
+          "name": "@electron-forge/maker-rpm",
+          "config": {}
+        }
+      ]
+    }
   }
 }
