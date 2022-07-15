@@ -1,278 +1,371 @@
-const cheerio = require('cheerio');
-const puppeteer = require('puppeteer');
-const puppeteerExtra = require('puppeteer-extra');
-const stealthPlugin = require('puppeteer-extra-plugin-stealth');
-const dotenv = require('dotenv');
-const readline = require('readline');
-const fs = require('fs')
-const ChromeLauncher = require('chrome-launcher');
-const jsonfile = require('jsonfile');
-puppeteerExtra.use(stealthPlugin());
-const prompt = (query, hidden = false) =>
-  new Promise((resolve, reject) => {
-    const rl = readline.createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
-    try {
-      if (hidden) {
-        const stdin = process.openStdin();
-        process.stdin.on('data', (char) => {
-          char = char + '';
-          switch (char) {
-            case '\n':
-            case '\r':
-            case '\u0004':
-              stdin.pause();
-              break;
-            default:
-              process.stdout.clearLine(0);
-              readline.cursorTo(process.stdout, 0);
-              process.stdout.write(query + Array(rl.line.length + 1).join('*'));
-              break;
-          }
-        });
-      }
-      rl.question(query, (value) => {
-        resolve(value);
-        rl.close();
+if (done === true) {
+  c = 0.25
+  window.setProgressBar(c)
+
+  try {
+    const url1 = 'https://dialogflow.cloud.google.com';
+    //const window = new BrowserWindow();
+    await window.loadURL(url1);
+    const page1 = await pie.getPage(browser, window);
+    await page1.waitForTimeout(15000);
+    async function Backup() {
+      await page1.waitForTimeout(10000);
+      //click settings
+      await page1.waitForSelector(`#link-settings-agent`, {
+        timeout: 5000
       });
-    } catch (err) {
-      reject(err);
+      //await scrollIntoViewIfNeeded(element, timeout);
+      await page1.waitForTimeout(1500);
+      console.log('selecting settings')
+      await page1.click(`#link-settings-agent`);
+
+      //click import/export
+      await page1.waitForSelector(`aria/Export and Import`, {
+        timeout: 5000
+      });
+      //await scrollIntoViewIfNeeded(element, timeout);
+      await page1.waitForTimeout(1500);
+      console.log('selecting import/export')
+      await page1.click(`aria/Export and Import`);
+
+      //click export button
+
+      console.log('selecting export button')
+      await page1.waitForTimeout(1000);
+      const client = await page1.target().createCDPSession();
+      await client.send("Page.setDownloadBehavior", {
+        behavior: "allow",
+        downloadPath: path.resolve(__dirname, "download")
+      });
+
+      await page1.waitForSelector(`aria/EXPORT AS ZIP`, {
+        timeout: 5000
+      });
+      //await scrollIntoViewIfNeeded(element, timeout);
+      await page1.waitForTimeout(2000);
+      await page1.click(`aria/EXPORT AS ZIP`)
+
+
+
+      await page1.waitForTimeout(15000);
     }
-  });
-const innit = async () => {
-  
-  const browser = await puppeteerExtra.launch({ headless: false, defaultViewport: null,args: [
-    '--disable-web-security',
-    '--disable-features=IsolateOrigins,site-per-process'
-  ] });
-    const page = await browser.newPage();
-    const pages = await browser.pages();
-    // Close the new tab that chromium always opens first.
-    pages[0].close();
-    /*Your login code*/
-    await page.goto('https://accounts.google.com/signin/v2/identifier', { waitUntil: 'networkidle2', timeout: 0 });
-    await page.waitForSelector('#identifierId');
-    //const email = await prompt('Email or phone: ');
-    await page.type('#identifierId', 'creativesites263@gmail.com');
-    await page.waitForTimeout(2500);
-    await page.keyboard.press('Enter');
-    await page.waitForTimeout(1500);
-    const password = await prompt('Enter your password: ', true);
-    console.log('Finishing up...');
-    // Wait for password input
-    await page.waitForSelector('input[type="password"]');
-    await page.type('input[type="password"]', password);
-    await page.waitForTimeout(2500);
-    await page.keyboard.press('Enter');
-
-    //save cookies
-  
-    const cookies = JSON.stringify(await page.cookies());
-    const sessionStorage = await page.evaluate(() =>JSON.stringify(sessionStorage));
-    const localStorage = await page.evaluate(() => JSON.stringify(localStorage));
-  
-    //await fs.writeFile("./session/cookies.json", cookies);
-    await jsonfile.writeFile("./session/cookies.json", cookies)
-    .then(res1 => {
-        console.log('Write complete')
-    })
-    .catch(error => console.error(error)); 
-    //await fs.writeFile("./session/sessionStorage.json", sessionStorage);
-    await jsonfile.writeFile("./session/sessionStorage.json", sessionStorage)
-    .then(res1 => {
-        console.log('Write complete')
-    })
-    .catch(error => console.error(error)); 
-    //await fs.writeFile("./session/localStorage.json", localStorage);
-    await jsonfile.writeFile("./session/localStorage.json", localStorage)
-    .then(res1 => {
-        console.log('Write complete')
-    })
-    .catch(error => console.error(error)); 
-    browser.disconnect();
-};
-
-const innit1 = async () => {
-    const browser = await puppeteerExtra.connect({
-      browserWSEndpoint: `ws://localhost:3000?keepalive=300000`,
-    });
-    const page = await browser.newPage();
-  
-    await page.goto("https://www.goodreads.com/user/sign_in");
-    await page.click(".authPortalConnectButton");
-    await page.waitForNetworkIdle();
-    
-    await page.type("#ap_email", "****");
-    await page.type("#ap_password", "****");
-    await page.click("#signInSubmit");
-    await page.waitForNetworkIdle();
-    browser.disconnect();
-}
-
-const start = async (agent, ints, changeAgents) => {
-    //await innit();
-    const browser = await puppeteerExtra.launch({ headless: false, defaultViewport: null,args: [
-      '--disable-web-security',
-      '--disable-features=IsolateOrigins,site-per-process'
-    ] });
-    const page1 = await browser.newPage();
-    let cookiesString;
-    await jsonfile.readFile("./session/cookies.json", function (err, obj) {
-      if (err) console.error(err)
-      cookiesString = obj;
-    })
-    
-  
-    let sessionStorageString;
-    await jsonfile.readFile("./session/sessionStorage.json", function (err, obj) {
-      if (err) console.error(err)
-      sessionStorageString = obj;
-    })
    
-  
-    let localStorageString;
-    await jsonfile.readFile("./session/localStorage.json", function (err, obj) {
-      if (err) console.error(err)
-      localStorageString = obj;
-    })
-    
-  
-    
-    let cookies;
-    let sessionStorage;
-    let localStorage;
-    setTimeout(async() => {
-      cookies = JSON.parse(cookiesString);
-      sessionStorage = JSON.parse(sessionStorageString);
-      localStorage = JSON.parse(localStorageString);
-      await page1.setCookie(...cookies);
-  
-    await page1.evaluate((data) => {
-      for (const [key, value] of Object.entries(data)) {
-        sessionStorage[key] = value;
-      }
-    }, sessionStorage);
-  
-    await page1.evaluate((data) => {
-      for (const [key, value] of Object.entries(data)) {
-        localStorage[key] = value;
-      }
-    }, sessionStorage);
-
-    }, 3000);
-   setTimeout(async() => {
-    const url = 'https://dialogflow.cloud.google.com';
-    
-    await page1.goto(url, {waitUntil: 'networkidle2', timeout: 0});
-    await page1.setViewport({ width: 1267, height: 571 })
-    await page1.waitForTimeout(5000);
-    let agentsLen = changeAgents.length;
-    await page1.waitForTimeout(10000);
-    await changeAgents.forEach(async(el, idx)=> {
-      setTimeout(async() => {
+    async function runBackup(){
+      await page1.waitForTimeout(5000);
+    //await page1.waitForTimeout(10000);
+    console.log('BACKUP')
+    try {
+      for (const el of changeAgents1) {
         try {
+          console.log(`Backing up ${el}`)
+          NOTIFICATION_TITLE = 'Backup Agents';
+          NOTIFICATION_BODY = `Backing up ${el}`;
+          showNotification()
           //select select agent button
           await page1.waitForTimeout(9000);
-          await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret',{ timeout: 0 });
+          await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
+            timeout: 5000
+          });
           await page1.waitForTimeout(1000);
           console.log('selecting select agent button')
           await page1.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
 
-          //select agent
-          //scroll if needed
-          await page1.waitForTimeout(1500);
-          await page1.waitForSelector(`aria/${agent}`,{ timeout: 0 });
-          //await scrollIntoViewIfNeeded(element, timeout);
-          await page1.waitForTimeout(1500);
-          console.log('selecting agent to copy from')
-          await page1.click(`aria/${agent}`)
+          try {
+            //select agent
+            //scroll if needed
+            await page1.waitForTimeout(5000);
+            await page1.waitForSelector(`aria/${el}`, {
+              timeout: 5000
+            });
+            //await scrollIntoViewIfNeeded(element, timeout);
+            await page1.waitForTimeout(1000);
+            console.log('selecting agent to copy from')
+            await page1.click(`aria/${el}`);
+            await Backup()
+          } catch (error) {
+            console.log('agent already selected')
+            await page1.reload({
+              waitUntil: ["networkidle0", "domcontentloaded"]
+            });
+            await page1.waitForTimeout(15000);
+            await Backup()
+          }
 
-          await ints.forEach(async(e, i)=>{
-          setTimeout(async() => {
-              await page1.waitForTimeout(10000);
+
+        } catch (error) {
+          console.log(error)
+          NOTIFICATION_TITLE = 'Backup Agents Error Occured';
+          NOTIFICATION_BODY = error.message;
+          showNotification()
+        }
+        c = 0.3
+        window.setProgressBar(c)
+        NOTIFICATION_TITLE = 'Backup Agents Finished';
+        NOTIFICATION_BODY = 'Updating Entities Now';
+        showNotification()
+      }
+    } catch (error) {
+      appErrMsg = error.message;
+      appErrStage = 'BACKUP';
+      appErrM = `The following error occured on the BACKUP AGENTS stage: \n${error.message} `;
+      NOTIFICATION_TITLE = 'OPERATION STOPPED!';
+      NOTIFICATION_BODY = appErrM;
+      showNotification()
+      done = false;
+      appErr = true;
+    }
+    }
+    //await runBackup()
+    
+    
+
+    //update intents
+    try {
+      try {
+        await page1.waitForTimeout(1000);
+        await page1.waitForSelector('#agents-dropdown-toggle > span.icon-right.icon-caret', {
+          timeout: 5000
+        });
+        await page1.waitForTimeout(2000);
+        log.info('selecting select agent button')
+  
+        await page1.click('#agents-dropdown-toggle > span.icon-right.icon-caret')
+  
+        //select agent
+        //scroll if needed
+        await page1.waitForTimeout(2000);
+        await page1.waitForSelector(`aria/${agent}`, {
+          timeout: 5000
+        });
+        //await scrollIntoViewIfNeeded(element, timeout);
+        await page1.waitForTimeout(1000);
+        log.info('selecting agent to copy from')
+  
+        await page1.click(`aria/${agent}`)
+        c = 0.4
+        window.setProgressBar(c)
+        await page1.waitForTimeout(5000);
+        await page1.waitForTimeout(5000);
+        await (async () => {
+  
+          for (let idx = 0; idx < changeAgents.length; idx++) {
+            const el5 = changeAgents[idx];
+            console.log(`Updating ${el5} Intents`)
+            NOTIFICATION_TITLE = `Updating ${el5} Intents`;
+            NOTIFICATION_BODY = `running ${el5}`;
+            showNotification()
+            
               //hover 
-              await page1.hover(`aria/${e.name}`,{ timeout: 0 })
+              await page1.waitForTimeout(5000);
+              await page1.hover(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints1[0]}) > intents-list-item > div > div > span`, {
+                timeout: 5000
+              })
               await page1.waitForTimeout(2000);
-              console.log('hovering over intent')
-              //select intents
-              //loop
-              //parameters
-              //scroll into view
-              await page1.waitForTimeout(1000);
-              await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e.num}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`,{ timeout: 0 });
-              await page1.waitForTimeout(2000);
-              console.log('selecting intent')
-              await page1.click(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e.num}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`)
-              
-              //select copy button
-              await page1.waitForTimeout(1000);
-              await page1.waitForSelector('aria/COPY',{ timeout: 0 });
-              await page1.waitForTimeout(1000);
-              console.log('selecting copy button')
-              await page1.click('aria/COPY')
-
-              //select intents and entities
-              await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container',{ timeout: 0 });
-              await page1.waitForTimeout(2000);
-              console.log('selecting overwrite entities')
-              await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container')
-              await page1.waitForTimeout(1000);
-              await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container',{ timeout: 0 });
-              await page1.waitForTimeout(1000);
-              console.log('selecting overwrite intents')
-              await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container')
-              await page1.waitForTimeout(1000); 
-
-                //select agent
-              await page1.waitForSelector('aria/Destination agent',{ timeout: 0 })
-              console.log('selecting selct agent')
-              await page1.waitForTimeout(1000);
-              await page1.click('aria/Destination agent')
-
+              log.info('hovering over intent')
+              await page1.waitForTimeout(5000);
+  
+              for (const e5 of ints1) {
+                //select intents
+                //scroll into view
+                await page1.waitForTimeout(1000);
+                await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e5}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`, {
+                  timeout: 5000
+                });
+                await page1.waitForTimeout(2000);
+                log.info(`selecting intent`)
+                await page1.click(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e5}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`)
+                await page1.waitForTimeout(1000);
+              }
+            
+            
+            await page1.waitForSelector('aria/COPY', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(1000);
+            log.info('selecting copy button')
+            await page1.click('aria/COPY')
+  
+            //select intents and entities
+            await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(2000);
+            log.info('selecting overwrite entities')
+            await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container')
+            await page1.waitForTimeout(1000);
+            await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(1000);
+            log.info('selecting overwrite intents')
+            await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container')
+            await page1.waitForTimeout(1000);
+  
+            //select agent
+            await page1.waitForSelector('aria/Destination agent', {
+              timeout: 5000
+            })
+            log.info('selecting selct agent')
+            await page1.waitForTimeout(1000);
+            await page1.click('aria/Destination agent')
+  
             //select the agent
             //first level loop
             //parameters
-            await page1.waitForSelector(`aria/${el}`,{ timeout: 0 })
-            console.log('selecting agent')
+            await page1.waitForSelector(`aria/${el5}`, {
+              timeout: 5000
+            })
+            log.info('selecting agent')
             await page1.waitForTimeout(1000);
-            await page1.click('aria/AvondalePolice [en]')
-
+            await page1.click(`aria/${el5}`)
+  
             //copy intents
-            
-            await page1.waitForSelector('aria/START',{ timeout: 0 })
-            console.log('selecting START')
+  
+            await page1.waitForSelector('aria/START', {
+              timeout: 5000
+            })
+            log.info('selecting START')
             await page1.waitForTimeout(2000);
             await page1.click('aria/START')
-
-            await page1.waitForSelector('aria/DONE',{ timeout: 0 })
-            console.log('selecting DONE')
+  
+            await page1.waitForSelector('aria/DONE', {
+              timeout: 5000
+            })
+            log.info('selecting DONE')
             await page1.waitForTimeout(2000);
             await page1.click('aria/DONE')
-          }, 28000 * i);
-          })
-          
+            c = 0.76
+            window.setProgressBar(c)
+          }
+  
+        })()
+  
+        c = 1
+        window.setProgressBar(c)
+        NOTIFICATION_TITLE = 'Update Finished';
+        NOTIFICATION_BODY = 'You can close the App';
+        showNotification()
+      } catch (error) {
+        console.log('agent already selected')
+        await page1.reload({
+          waitUntil: ["networkidle0", "domcontentloaded"]
+        });
+        await page1.waitForTimeout(15000);
+        await page1.waitForTimeout(5000);
+        await (async () => {
+  
+          for (let idx = 0; idx < changeAgents.length; idx++) {
+            const el5 = changeAgents[idx];
+            console.log(`Updating ${el5} Intents`)
+            NOTIFICATION_TITLE = `Updating ${el5} Intents`;
+            NOTIFICATION_BODY = `running ${el5}`;
+            showNotification()
             
-        } catch (error) {
-          
-        }
-      }, 41000 * idx * agentsLen);
-    });
-   }, 5000);
-};
+              //hover 
+              await page1.waitForTimeout(5000);
+              await page1.hover(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${ints1[0]}) > intents-list-item > div > div > span`, {
+                timeout: 5000
+              })
+              await page1.waitForTimeout(2000);
+              log.info('hovering over intent')
+              await page1.waitForTimeout(5000);
+  
+              for (const e5 of ints1) {
+                //select intents
+                //scroll into view
+                await page1.waitForTimeout(1000);
+                await page1.waitForSelector(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e5}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`, {
+                  timeout: 5000
+                });
+                await page1.waitForTimeout(2000);
+                log.info(`selecting intent`)
+                await page1.click(`#main > div > div.workplace.ng-scope > div > div > div.ng-scope > ul > li:nth-child(${e5}) > intents-list-item > div > div > md-checkbox > div.md-container.md-ink-ripple`)
+                await page1.waitForTimeout(1000);
+              }
+            
+            
+            await page1.waitForSelector('aria/COPY', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(1000);
+            log.info('selecting copy button')
+            await page1.click('aria/COPY')
+  
+            //select intents and entities
+            await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(2000);
+            log.info('selecting overwrite entities')
+            await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(4) > .md-primary > .md-container')
+            await page1.waitForTimeout(1000);
+            await page1.waitForSelector('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container', {
+              timeout: 5000
+            });
+            await page1.waitForTimeout(1000);
+            log.info('selecting overwrite intents')
+            await page1.click('.ng-scope > .md-dialog-content > .md-block:nth-child(5) > .md-primary > .md-container')
+            await page1.waitForTimeout(1000);
+  
+            //select agent
+            await page1.waitForSelector('aria/Destination agent', {
+              timeout: 5000
+            })
+            log.info('selecting selct agent')
+            await page1.waitForTimeout(1000);
+            await page1.click('aria/Destination agent')
+  
+            //select the agent
+            //first level loop
+            //parameters
+            await page1.waitForSelector(`aria/${el5}`, {
+              timeout: 5000
+            })
+            log.info('selecting agent')
+            await page1.waitForTimeout(1000);
+            await page1.click(`aria/${el5}`)
+  
+            //copy intents
+  
+            await page1.waitForSelector('aria/START', {
+              timeout: 5000
+            })
+            log.info('selecting START')
+            await page1.waitForTimeout(2000);
+            await page1.click('aria/START')
+  
+            await page1.waitForSelector('aria/DONE', {
+              timeout: 5000
+            })
+            log.info('selecting DONE')
+            await page1.waitForTimeout(2000);
+            await page1.click('aria/DONE')
+            c = 0.76
+            window.setProgressBar(c)
+          }
+  
+        })()
+  
+        c = 1
+        window.setProgressBar(c)
+        NOTIFICATION_TITLE = 'Update Finished';
+        NOTIFICATION_BODY = 'You can close the App';
+        showNotification()
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
 
-let agnt = '3V-200-AS2-3238142611'
-let intss = [
-  {
-    name: '1-GreetingEA Expand follow-up intents',
-    num: '4'
-  },
-  {
-    name: '5-VoicemailNN Expand follow-up intents',
-    num: '6'
+  } catch (error) {
+      appErrMsg = error.message;
+      appErrStage = 'INTENTS';
+      appErrM = `The following error occured on the UPDATE INTENTS stage: \n${error.message} `;
+      NOTIFICATION_TITLE = 'OPERATION STOPPED!';
+      NOTIFICATION_BODY = appErrM;
+      showNotification()
+      done = false;
+      appErr = true;
   }
-]
-let changeAgents = ['AvondalePolice [en]']
-//innit()
-start(agnt, intss, changeAgents)
+
+}

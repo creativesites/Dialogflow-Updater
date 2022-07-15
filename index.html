@@ -1,0 +1,532 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+  <title>Dialogflow Updater</title>
+
+  <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0' name='viewport' />
+  <meta name="viewport" content="width=device-width" />
+  <link rel="stylesheet" href="assets/css/style.css">
+  <!-- Nucleo Icons -->
+  <link href="assets/css/nucleo-icons.css" rel="stylesheet" />
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- Font Awesome Icons -->
+  <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
+  <link href="assets/css/nucleo-svg.css" rel="stylesheet" />
+  <!-- CSS Files -->
+  <link id="pagestyle" href="assets/css/soft-ui-dashboard.css?v=1.0.6" rel="stylesheet" />
+  <link rel="apple-touch-icon" sizes="76x76" href="assets/img/apple-icon.png" />
+  <link rel="icon" type="image/png" href="assets/img/favicon.png" />
+
+  <!--     Fonts and icons     -->
+  <link rel="stylesheet" type="text/css"
+    href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css" />
+
+  <!-- CSS Files -->
+  <link href="assets/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="assets/css/material-bootstrap-wizard.css" rel="stylesheet" />
+
+  <!-- CSS Just for demo purpose, don't include it in your project -->
+  <link href="assets/css/demo.css" rel="stylesheet" />
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/css/select2.min.css" rel="stylesheet" />
+
+</head>
+
+<body>
+  <div class="image-container set-full-height" style="background-image: url('assets/img/wizard-city.jpg')">
+
+
+    <!--  Run  -->
+    <a href="#" class="made-with-mk">
+      <div class="brand">DU</div>
+      <div class="made-with">Run <strong>Dialogflow Updater</strong></div>
+    </a>
+
+    <!--   Big container   -->
+    <div class="container">
+      <div class="row">
+        <div class="col-sm-12">
+          <!--      Wizard container        -->
+          <div class="wizard-container">
+            <div class="card wizard-card" data-color="purple" id="wizard">
+             
+                <!--        You can switch " data-color="rose" "  with one of the next bright colors: "blue", "green", "orange", "purple"        -->
+
+                <div class="wizard-header">
+                  <h3 class="wizard-title">
+                    Configure Dialogflow Updater
+                  </h3>
+                  <h5>Add Agents and Configuration.</h5>
+                </div>
+                <div class="wizard-navigation">
+                  <ul>
+                    <li><a href="#location" data-toggle="tab">Add Agents</a></li>
+                    <li><a href="#type" data-toggle="tab">Add Intents And Entities</a></li>
+                    <li><a href="#facilities" data-toggle="tab">Add Configurations</a></li>
+                    <li><a href="#description" data-toggle="tab">Run Configuration</a></li>
+                  </ul>
+                </div>
+
+                <div class="tab-content">
+                  <div class="tab-pane" id="location">
+                    <div class="row">
+                      <form action="" method="get" id="agentForm">
+                      <div class="col-sm-12">
+                        <h4 class="info-text"> Add Agents</h4>
+                      </div>
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Agent Name</label>
+                          <input type="text" class="form-control" id="agentName">
+                        </div>
+                      </div>
+                      </form>
+                      <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Type</label>
+                          <select name="agentType" class="form-control">
+                            <option disabled="" selected=""></option>
+                            <option value="source"> Source Agent </option>
+                            <option value="target"> Target Agent </option>
+
+                          </select>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <input type='button' type="submit" class='btn btn-next btn-fill btn-primary btn-wd' name='addAgent'
+                          value='Add Agent' />
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Intent Name</label>
+                          <input type="text" class="form-control" id="intentName">
+                        </div>
+                      </div>
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Intent Index</label>
+                          <input type="text" class="form-control" id="intentIndex">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='addIntent'
+                          value='Add Intent' />
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Entity Name</label>
+                          <input type="text" class="form-control" id="entityName">
+                        </div>
+                      </div>
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Entity Index</label>
+                          <input type="text" class="form-control" id="entityIndex">
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='addEntity'
+                          value='Add Entity' />
+                      </div>
+
+                    </div>
+                  </div>
+                  <div class="tab-pane" id="type">
+                    
+                    <div class="row">
+
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Configuration Name</label>
+                          <input type="text" class="form-control" id="configName">
+                        </div>
+                      </div>
+                      <div class="col-sm-5">
+                        <div class="form-group label-floating">
+                          <div class="form-group label-floating">
+                            <label class="control-label">Configuration Description</label>
+                            <input type="text" class="form-control" id="configDesc">
+                          </div>
+                        </div>
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div class="col-sm-5 col-sm-offset-1">
+                        <div class="form-group label-floating">
+                          <label class="control-label">Select Source Agent</label>
+                          <select class="form-control">
+                            <option disabled="" selected=""></option>
+                            <option>Business</option>
+                            <option>Vacation </option>
+                            <option>Work</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div >
+                        
+                        <div class="col-sm-12 col-sm-offset-1">
+                          <label class="control-label">Select Target Agents</label>
+                          <select class="js-select2" multiple="multiple">
+                            <option value="O1" data-badge="">Option1</option>
+                            <option value="O2" data-badge="">Option2</option>
+                            <option value="O3" data-badge="">Option3</option>
+                            <option value="O4" data-badge="">Option4</option>
+                            <option value="O5" data-badge="">Option5</option>
+                            <option value="O6" data-badge="">Option6</option>
+                            <option value="O7" data-badge="">Option7</option>
+                            <option value="O8" data-badge="">Option8</option>
+                            <option value="O9" data-badge="">Option9</option>
+                            <option value="O10" data-badge="">Option10</option>
+                            <option value="O11" data-badge="">Option11</option>
+                            <option value="O12" data-badge="">Option12</option>
+                            <option value="O13" data-badge="">Option13</option>
+                          </select>
+                        </div>
+
+                      </div>
+
+                    </div>
+                    <div class="row">
+                      <div >
+                        
+                        <div class="col-sm-12 col-sm-offset-1">
+                          <label class="control-label">Select Entities</label>
+                          <select class="js-select2" multiple="multiple">
+                            <option value="O1" data-badge="">Option1</option>
+                            <option value="O2" data-badge="">Option2</option>
+                            <option value="O3" data-badge="">Option3</option>
+                            <option value="O4" data-badge="">Option4</option>
+                            <option value="O5" data-badge="">Option5</option>
+                            <option value="O6" data-badge="">Option6</option>
+                            <option value="O7" data-badge="">Option7</option>
+                            <option value="O8" data-badge="">Option8</option>
+                            <option value="O9" data-badge="">Option9</option>
+                            <option value="O10" data-badge="">Option10</option>
+                            <option value="O11" data-badge="">Option11</option>
+                            <option value="O12" data-badge="">Option12</option>
+                            <option value="O13" data-badge="">Option13</option>
+                          </select>
+                        </div>
+
+                      </div>
+                      <div >
+                          
+                        <div class="col-sm-12 col-sm-offset-1">
+                          <label class="control-label">Select Intents</label>
+                          <select class="js-select2" multiple="multiple">
+                            <option value="O1" data-badge="">Option1</option>
+                            <option value="O2" data-badge="">Option2</option>
+                            <option value="O3" data-badge="">Option3</option>
+                            <option value="O4" data-badge="">Option4</option>
+                            <option value="O5" data-badge="">Option5</option>
+                            <option value="O6" data-badge="">Option6</option>
+                            <option value="O7" data-badge="">Option7</option>
+                            <option value="O8" data-badge="">Option8</option>
+                            <option value="O9" data-badge="">Option9</option>
+                            <option value="O10" data-badge="">Option10</option>
+                            <option value="O11" data-badge="">Option11</option>
+                            <option value="O12" data-badge="">Option12</option>
+                            <option value="O13" data-badge="">Option13</option>
+                          </select>
+                        </div>
+
+                      </div>
+                    </div>
+                    
+                    
+                        <div class="row">
+                          <div class="col-sm-5 col-sm-offset-1">
+                            <input type='button' class='btn btn-next btn-fill btn-primary btn-wd' name='addConfig'
+                              value='Add Configuration' />
+                          </div>
+
+                        </div>
+
+                  </div>
+                  <div class="tab-pane" id="facilities">
+                    <h4 class="info-text">Add Configuration. </h4>
+                    <div class="col-sm-12">
+                      <div class="card">
+                        <div class="card-header pb-0">
+                          <div class="row">
+                            <div class="col-lg-6 col-7">
+                              <h6>Configurations</h6>
+                              <p class="text-sm mb-0">
+                                <i class="fa fa-check text-info" aria-hidden="true"></i>
+                                <span class="font-weight-bold ms-1">5</span> configurations set
+                              </p>
+                            </div>
+                            <div class="col-lg-6 col-5 my-auto text-end">
+                              <div class="dropdown float-lg-end pe-4">
+                                <a class="cursor-pointer" id="dropdownTable" data-bs-toggle="dropdown" aria-expanded="false">
+                                  <i class="fa fa-ellipsis-v text-secondary"></i>
+                                </a>
+                                <ul class="dropdown-menu px-2 py-3 ms-sm-n4 ms-n5" aria-labelledby="dropdownTable">
+                                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Action</a></li>
+                                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Another action</a></li>
+                                  <li><a class="dropdown-item border-radius-md" href="javascript:;">Something else here</a></li>
+                                </ul>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                        <div class="card-body px-0 pb-2">
+                          <div class="table-responsive">
+                            <table class="table align-items-center mb-0">
+                              <thead>
+                                <tr>
+                                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Name</th>
+                                  <th class="text-uppercase text-secondary text-xxs font-weight-bolder opacity-7 ps-2">Source Agent</th>
+                                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">Description</th>
+                                  <th class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7"></th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <div class="d-flex px-2 py-1">
+                
+                                      <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Test 1</h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <span class="text-xs font-weight-bold"> Agent-One </span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> test to check saving data </span>
+                                  </td>
+                                  <td class="align-middle">
+                                    <div class="progress-wrapper w-75 mx-auto">
+                                      <div class="progress-info">
+                                        <div class="progress-percentage">
+                                          <span class="text-xs font-weight-bold">60%</span>
+                                        </div>
+                                      </div>
+                                      <div class="progress">
+                                        <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="d-flex px-2 py-1">
+                
+                                      <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Test 1</h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <span class="text-xs font-weight-bold"> Agent-One </span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> test to check saving data </span>
+                                  </td>
+                                  <td class="align-middle">
+                                    <div class="progress-wrapper w-75 mx-auto">
+                                      <div class="progress-info">
+                                        <div class="progress-percentage">
+                                          <span class="text-xs font-weight-bold">60%</span>
+                                        </div>
+                                      </div>
+                                      <div class="progress">
+                                        <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="d-flex px-2 py-1">
+                
+                                      <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Test 1</h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <span class="text-xs font-weight-bold"> Agent-One </span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> test to check saving data </span>
+                                  </td>
+                                  <td class="align-middle">
+                                    <div class="progress-wrapper w-75 mx-auto">
+                                      <div class="progress-info">
+                                        <div class="progress-percentage">
+                                          <span class="text-xs font-weight-bold">60%</span>
+                                        </div>
+                                      </div>
+                                      <div class="progress">
+                                        <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                <tr>
+                                  <td>
+                                    <div class="d-flex px-2 py-1">
+                
+                                      <div class="d-flex flex-column justify-content-center">
+                                        <h6 class="mb-0 text-sm">Test 1</h6>
+                                      </div>
+                                    </div>
+                                  </td>
+                                  <td>
+                                    <span class="text-xs font-weight-bold"> Agent-One </span>
+                                  </td>
+                                  <td class="align-middle text-center text-sm">
+                                    <span class="text-xs font-weight-bold"> test to check saving data </span>
+                                  </td>
+                                  <td class="align-middle">
+                                    <div class="progress-wrapper w-75 mx-auto">
+                                      <div class="progress-info">
+                                        <div class="progress-percentage">
+                                          <span class="text-xs font-weight-bold">60%</span>
+                                        </div>
+                                      </div>
+                                      <div class="progress">
+                                        <div class="progress-bar bg-gradient-info w-60" role="progressbar" aria-valuenow="60" aria-valuemin="0" aria-valuemax="100"></div>
+                                      </div>
+                                    </div>
+                                  </td>
+                                </tr>
+                                
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                      </div>
+                      <div class="tab-pane" id="description">
+                        <div class="col-sm-12">
+                          
+                          <div class="col-sm-12">
+                            <div class="card">
+                              <div class="card-header pb-0">
+                                <h6>Update overview</h6>
+                                <p class="text-sm">
+                                  <i class="fa fa-arrow-up text-success" aria-hidden="true"></i>
+                                  <span class="font-weight-bold">Configuration</span> Test One
+                                </p>
+                              </div>
+                              <div class="card-body">
+                                <div class="timeline timeline-one-side">
+                                  <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-bell-55 text-success text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">Backup Agents</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">DONE</p>
+                                    </div>
+                                  </div>
+                                  <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-html5 text-success text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">Update Intents</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">DONE</p>
+                                    </div>
+                                  </div>
+                                  <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-cart text-info text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">Update Entities</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">In Progress</p>
+                                    </div>
+                                  </div>
+                                  <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-credit-card text-warning text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">Complete Process</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">In Progress</p>
+                                    </div>
+                                  </div>
+                                  <div class="timeline-block mb-3">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-key-25 text-primary text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">Erros</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">NONE</p>
+                                    </div>
+                                  </div>
+                                  <div class="timeline-block">
+                                    <span class="timeline-step">
+                                      <i class="ni ni-money-coins text-dark text-gradient"></i>
+                                    </span>
+                                    <div class="timeline-content">
+                                      <h6 class="text-dark text-sm font-weight-bold mb-0">New order #9583120</h6>
+                                      <p class="text-secondary font-weight-bold text-xs mt-1 mb-0">17 DEC</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+
+              
+            </div>
+          </div> <!-- wizard container -->
+        </div>
+      </div> <!-- row -->
+    </div> <!--  big container -->
+
+    <div class="footer">
+      <div class="container text-center">
+
+      </div>
+    </div>
+  </div>
+  <script src="./addAgent.js"></script>
+</body>
+<!--   Core JS Files   -->
+<script src="assets/js/jquery-2.2.4.min.js" type="text/javascript"></script>
+<script src="assets/js/bootstrap.min.js" type="text/javascript"></script>
+<script src="assets/js/jquery.bootstrap.js" type="text/javascript"></script>
+
+<!--  Plugin for the Wizard -->
+<script src="assets/js/material-bootstrap-wizard.js"></script>
+
+<!--  More information about jquery.validate here: http://jqueryvalidation.org/	 -->
+<script src="assets/js/jquery.validate.min.js"></script>
+<script src="assets/js/popper.js"></script>
+<script src="assets/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.4/js/select2.min.js"></script>
+<script src="assets/js/main.js"></script>
+
+</html>
