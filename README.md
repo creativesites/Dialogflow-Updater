@@ -1,14 +1,10 @@
 # Dialogflow-Updater
 
-1. Download and install Node js from here: 
-* https://nodejs.org/en/download/
 
-3. Download and install Git from here: 
-* https://git-scm.com/download/mac
 
-4. Open Terminal on your computer
+1. Open Terminal on your computer
 
-5. Copy and paste the following commands into terminal:
+2. Copy and paste the following commands into terminal:
 
 * clone repo
   ```sh
@@ -26,9 +22,19 @@
   npm install
   ```
 
-* run 
+* install NGROK.
+Ngrok exposes the App's Express server to Google Sheets, allowing the app to listen to requests to run an update.
   ```sh
-  npm start
+  npm install ngrok -g
+  ```
+
+* run ngrok
+```sh
+  ngrok http 3008
+  ```
+* run app
+```sh
+  npm run launch
   ```
 
 
